@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rahul & Anjali | Royal Wedding Invitation</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+    
+    <!-- AOS CSS for scroll animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        royalRed: '#7b1113',     // Deep Indian Wedding Red
+                        luxuryGold: '#d4af37',   // Classic Gold
+                        darkMaroon: '#4a040b',   // Darker shade for depth
+                        cream: '#fdfbf7',        // Soft off-white for backgrounds
+                    },
+                    fontFamily: {
+                        cursive: ['"Great Vibes"', 'cursive'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Poppins"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'gold': '0 4px 20px rgba(212, 175, 55, 0.4)',
+                        'gold-glow': '0 0 25px rgba(212, 175, 55, 0.8)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #fdfbf7;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-panel {
+            background: rgba(123, 17, 19, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(123, 17, 19, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px 0 rgba(123, 17, 19, 0.15);
+            border-color: rgba(212, 175, 55, 0.8);
+        }
+
+        /* Text Gradients & Borders */
+        .gold-text {
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .gold-border-gradient {
+            position: relative;
+        }
+        .gold-border-gradient::before {
+            content: "";
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
+            z-index: -1;
+        }
+
+        /* Floating Flower Petals */
+        #petals-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 40;
+            overflow: hidden;
+        }
+        .petal {
+            position: absolute;
+            background: url('https://cdn-icons-png.flaticon.com/512/820/820556.png') no-repeat center center;
+            background-size: contain;
+            width: 15px;
+            height: 15px;
+            opacity: 0.7;
+            animation: fall linear infinite;
+            /* Tinting to match red/pink theme */
+            filter: hue-rotate(320deg) saturate(3) brightness(0.8);
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg) translateX(0); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(110vh) rotate(360deg) translateX(20px); opacity: 0; }
+        }
+
+        /* Hero Background */
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Swiper Customization */
+        .swiper-button-next, .swiper-button-prev { color: #d4af37 !important; text-shadow: 0 0 5px rgba(0,0,0,0.5); }
+        .swiper-pagination-bullet { background: #d4af37 !important; opacity: 0.5; }
+        .swiper-pagination-bullet-active { opacity: 1; transform: scale(1.2); }
+
+        /* Mandala Background Pattern */
+        .pattern-bg {
+            background-image: url('https://www.transparenttextures.com/patterns/arabesque.png');
+            opacity: 0.04;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Audio Player & Floating Button -->
+    <audio id="weddingMusic" loop>
+        <!-- Relaxing royalty-free instrumental -->
+        <source src="https://assets.mixkit.co/music/preview/mixkit-beautiful-dream-493.mp3" type="audio/mpeg">
+    </audio>
+    
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-center gap-2">
+        <span id="music-tooltip" class="bg-darkMaroon text-luxuryGold text-xs font-sans px-3 py-1 rounded-full shadow-lg transition-opacity duration-500">Tap for Music</span>
+        <button id="musicToggleBtn" class="bg-luxuryGold text-royalRed w-14 h-14 rounded-full shadow-gold-glow flex items-center justify-center text-xl transition-transform hover:scale-110">
+            <i class="fas fa-music" id="musicIcon"></i>
+        </button>
+    </div>
+
+    <!-- Floating Petals Container -->
+    <div id="petals-container"></div>
+
+    <!-- HERO SECTION -->
+    <section class="relative w-full h-screen hero-bg flex items-center justify-center overflow-hidden">
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-black/50"></div>
+        
+        <div class="z-10 text-center glass-panel p-8 md:p-16 rounded-3xl mx-4 max-w-3xl w-full flex flex-col items-center" id="hero-content">
+            <img src="https://cdn-icons-png.flaticon.com/512/3593/3593455.png" alt="Ganesha" class="w-16 mb-4 filter drop-shadow-md brightness-200">
+            <p class="text-luxuryGold font-sans tracking-[0.3em] uppercase mb-4 text-xs md:text-sm font-medium">We joyfully invite you to our wedding</p>
+            <h1 class="text-6xl md:text-8xl font-cursive text-white mb-2 drop-shadow-lg leading-tight">Rahul</h1>
+            <p class="text-4xl font-cursive text-luxuryGold my-2">&</p>
+            <h1 class="text-6xl md:text-8xl font-cursive text-white mb-8 drop-shadow-lg leading-tight">Anjali</h1>
+            <div class="w-24 h-[1px] bg-luxuryGold mb-6"></div>
+            <p class="text-white font-serif text-xl md:text-3xl mb-8 tracking-wide">November 25, 2026</p>
+            <a href="#events" class="bg-luxuryGold hover:bg-yellow-500 text-royalRed px-10 py-3 rounded-full font-serif font-bold uppercase tracking-wider shadow-gold transition-all duration-300">
+                Save the Date
+            </a>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce z-10 text-2xl">
+            <a href="#countdown-section"><i class="fas fa-chevron-down opacity-80 hover:text-luxuryGold transition"></i></a>
+        </div>
+    </section>
+
+    <!-- COUNTDOWN SECTION -->
+    <section id="countdown-section" class="py-16 md:py-24 bg-cream relative">
+        <div class="absolute inset-0 pattern-bg z-0"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <h2 class="text-4xl md:text-5xl font-serif text-center text-royalRed mb-12 font-bold" data-aos="fade-up">The Celebration Begins In</h2>
+            <div class="flex flex-wrap justify-center gap-4 md:gap-8 font-serif" id="countdown" data-aos="zoom-in" data-aos-delay="200">
+                <div class="glass-card p-4 md:p-6 rounded-2xl w-24 md:w-32 text-center">
+                    <span id="days" class="text-4xl md:text-6xl font-bold text-luxuryGold block drop-shadow-sm">00</span>
+                    <span class="text-royalRed font-semibold text-sm md:text-base uppercase tracking-wider mt-2 block">Days</span>
+                </div>
+                <div class="glass-card p-4 md:p-6 rounded-2xl w-24 md:w-32 text-center">
+                    <span id="hours" class="text-4xl md:text-6xl font-bold text-luxuryGold block drop-shadow-sm">00</span>
+                    <span class="text-royalRed font-semibold text-sm md:text-base uppercase tracking-wider mt-2 block">Hours</span>
+                </div>
+                <div class="glass-card p-4 md:p-6 rounded-2xl w-24 md:w-32 text-center">
+                    <span id="minutes" class="text-4xl md:text-6xl font-bold text-luxuryGold block drop-shadow-sm">00</span>
+                    <span class="text-royalRed font-semibold text-sm md:text-base uppercase tracking-wider mt-2 block">Mins</span>
+                </div>
+                <div class="glass-card p-4 md:p-6 rounded-2xl w-24 md:w-32 text-center">
+                    <span id="seconds" class="text-4xl md:text-6xl font-bold text-luxuryGold block drop-shadow-sm">00</span>
+                    <span class="text-royalRed font-semibold text-sm md:text-base uppercase tracking-wider mt-2 block">Secs</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COUPLE SECTION -->
+    <section class="py-20 md:py-32 bg-white relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-5xl md:text-6xl font-cursive text-royalRed mb-4">Meet the Couple</h2>
+                <div class="w-32 h-[2px] bg-luxuryGold mx-auto"></div>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center justify-center gap-16 md:gap-24">
+                <!-- Groom -->
+                <div class="text-center group" data-aos="fade-right" data-aos-duration="1000">
+                    <div class="w-64 h-64 mx-auto rounded-full p-2 mb-6 shadow-2xl relative gold-border-gradient transition-transform duration-500 group-hover:scale-105">
+                        <img src="https://images.unsplash.com/photo-1605651202774-7d573fd3f12d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Groom" class="w-full h-full object-cover rounded-full border-4 border-white">
+                    </div>
+                    <h3 class="text-4xl font-serif text-royalRed font-bold mb-3">Rahul Sharma</h3>
+                    <p class="text-luxuryGold font-sans text-sm tracking-widest uppercase mb-4 font-semibold">The Groom</p>
+                    <p class="text-gray-600 font-sans max-w-sm mx-auto leading-relaxed">Son of Mr. Rajesh & Mrs. Sunita Sharma. A visionary software architect with a passion for world exploration and an unwavering love for his family.</p>
+                </div>
+
+                <!-- Center Ampersand -->
+                <div class="hidden md:flex flex-col items-center justify-center" data-aos="zoom-in">
+                    <div class="h-24 w-[1px] bg-luxuryGold mb-4"></div>
+                    <span class="text-7xl font-cursive text-luxuryGold drop-shadow-md">&</span>
+                    <div class="h-24 w-[1px] bg-luxuryGold mt-4"></div>
+                </div>
+
+                <!-- Bride -->
+                <div class="text-center group" data-aos="fade-left" data-aos-duration="1000">
+                    <div class="w-64 h-64 mx-auto rounded-full p-2 mb-6 shadow-2xl relative gold-border-gradient transition-transform duration-500 group-hover:scale-105">
+                        <img src="https://images.unsplash.com/photo-1596455607563-ad6193f76b17?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Bride" class="w-full h-full object-cover rounded-full border-4 border-white">
+                    </div>
+                    <h3 class="text-4xl font-serif text-royalRed font-bold mb-3">Anjali Verma</h3>
+                    <p class="text-luxuryGold font-sans text-sm tracking-widest uppercase mb-4 font-semibold">The Bride</p>
+                    <p class="text-gray-600 font-sans max-w-sm mx-auto leading-relaxed">Daughter of Mr. Anil & Mrs. Meera Verma. A compassionate pediatrician whose radiant smile brings joy to everyone around her.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EVENTS SECTION -->
+    <section id="events" class="py-24 bg-cream relative">
+        <div class="absolute inset-0 pattern-bg z-0"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-5xl md:text-6xl font-cursive text-royalRed mb-4">Wedding Itinerary</h2>
+                <div class="w-32 h-[2px] bg-luxuryGold mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Haldi -->
+                <div class="glass-card p-10 rounded-2xl text-center group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-20 h-20 mx-auto bg-gradient-to-br from-yellow-400 to-yellow-600 text-white rounded-full flex items-center justify-center mb-6 text-3xl shadow-lg transition-transform duration-500 group-hover:rotate-180">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h3 class="text-3xl font-serif text-royalRed font-bold mb-2">Haldi Ceremony</h3>
+                    <div class="w-12 h-[2px] bg-luxuryGold mx-auto mb-4"></div>
+                    <p class="text-darkMaroon font-sans font-semibold mb-2"><i class="far fa-calendar-alt mr-2"></i>Nov 23, 2026</p>
+                    <p class="text-gray-600 font-sans text-sm mb-4"><i class="far fa-clock mr-2"></i>10:00 AM Onwards</p>
+                    <p class="text-gray-600 font-sans text-sm italic">The Courtyard, Taj Palace</p>
+                </div>
+
+                <!-- Mehendi -->
+                <div class="glass-card p-10 rounded-2xl text-center group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-20 h-20 mx-auto bg-gradient-to-br from-green-500 to-green-700 text-white rounded-full flex items-center justify-center mb-6 text-3xl shadow-lg transition-transform duration-500 group-hover:rotate-180">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3 class="text-3xl font-serif text-royalRed font-bold mb-2">Mehendi</h3>
+                    <div class="w-12 h-[2px] bg-luxuryGold mx-auto mb-4"></div>
+                    <p class="text-darkMaroon font-sans font-semibold mb-2"><i class="far fa-calendar-alt mr-2"></i>Nov 23, 2026</p>
+                    <p class="text-gray-600 font-sans text-sm mb-4"><i class="far fa-clock mr-2"></i>4:00 PM Onwards</p>
+                    <p class="text-gray-600 font-sans text-sm italic">Lotus Gardens, Taj Palace</p>
+                </div>
+
+                <!-- Sangeet -->
+                <div class="glass-card p-10 rounded-2xl text-center group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-20 h-20 mx-auto bg-gradient-to-br from-purple-500 to-indigo-700 text-white rounded-full flex items-center justify-center mb-6 text-3xl shadow-lg transition-transform duration-500 group-hover:rotate-180">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3 class="text-3xl font-serif text-royalRed font-bold mb-2">Sangeet Night</h3>
+                    <div class="w-12 h-[2px] bg-luxuryGold mx-auto mb-4"></div>
+                    <p class="text-darkMaroon font-sans font-semibold mb-2"><i class="far fa-calendar-alt mr-2"></i>Nov 24, 2026</p>
+                    <p class="text-gray-600 font-sans text-sm mb-4"><i class="far fa-clock mr-2"></i>7:30 PM Onwards</p>
+                    <p class="text-gray-600 font-sans text-sm italic">Grand Ballroom, Taj Palace</p>
+                </div>
+
+                <!-- Wedding (Centered on large screens) -->
+                <div class="glass-card p-10 rounded-2xl text-center group md:col-span-2 lg:col-span-1 lg:col-start-2 border-2 border-luxuryGold" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-24 h-24 mx-auto bg-gradient-to-br from-royalRed to-darkMaroon text-luxuryGold rounded-full flex items-center justify-center mb-6 text-4xl shadow-gold transition-transform duration-500 group-hover:scale-110">
+                        <i class="fas fa-ring"></i>
+                    </div>
+                    <h3 class="text-4xl font-serif text-royalRed font-bold mb-2">The Wedding</h3>
+                    <div class="w-16 h-[2px] bg-luxuryGold mx-auto mb-4"></div>
+                    <p class="text-darkMaroon font-sans font-semibold mb-2 text-lg"><i class="far fa-calendar-alt mr-2"></i>Nov 25, 2026</p>
+                    <p class="text-gray-600 font-sans text-sm mb-4"><i class="far fa-clock mr-2"></i>Baraat at 5:00 PM | Pheras at 8:00 PM</p>
+                    <p class="text-gray-600 font-sans text-sm italic font-medium">Royal Mandap, Taj Palace</p>
+                </div>
+
+                <!-- Reception -->
+                <div class="glass-card p-10 rounded-2xl text-center group md:col-span-2 lg:col-span-1 border-t-4 border-t-luxuryGold" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-20 h-20 mx-auto bg-gradient-to-br from-gray-700 to-black text-luxuryGold rounded-full flex items-center justify-center mb-6 text-3xl shadow-lg transition-transform duration-500 group-hover:rotate-180">
+                        <i class="fas fa-glass-cheers"></i>
+                    </div>
+                    <h3 class="text-3xl font-serif text-royalRed font-bold mb-2">Reception</h3>
+                    <div class="w-12 h-[2px] bg-luxuryGold mx-auto mb-4"></div>
+                    <p class="text-darkMaroon font-sans font-semibold mb-2"><i class="far fa-calendar-alt mr-2"></i>Nov 26, 2026</p>
+                    <p class="text-gray-600 font-sans text-sm mb-4"><i class="far fa-clock mr-2"></i>8:00 PM Onwards</p>
+                    <p class="text-gray-600 font-sans text-sm italic">The Crystal Hall, St. Regis</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY SECTION -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-5xl md:text-6xl font-cursive text-royalRed mb-4">Beautiful Memories</h2>
+                <div class="w-32 h-[2px] bg-luxuryGold mx-auto mb-4"></div>
+                <p class="font-sans text-gray-500 max-w-2xl mx-auto">A glimpse into our beautiful journey together.</p>
+            </div>
+
+            <!-- Swiper Carousel -->
+            <div class="swiper gallerySwiper max-w-5xl mx-auto rounded-2xl shadow-2xl overflow-hidden border-4 border-cream" data-aos="zoom-in" data-aos-duration="1200">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide relative">
+                        <div class="absolute inset-0 bg-black/20 hover:bg-transparent transition duration-500 z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Couple 1" class="w-full h-[400px] md:h-[600px] object-cover">
+                    </div>
+                    <div class="swiper-slide relative">
+                        <div class="absolute inset-0 bg-black/20 hover:bg-transparent transition duration-500 z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1620165362092-d04b69420067?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Couple 2" class="w-full h-[400px] md:h-[600px] object-cover">
+                    </div>
+                    <div class="swiper-slide relative">
+                        <div class="absolute inset-0 bg-black/20 hover:bg-transparent transition duration-500 z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1606216492348-73595b28d689?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Couple 3" class="w-full h-[400px] md:h-[600px] object-cover">
+                    </div>
+                    <div class="swiper-slide relative">
+                        <div class="absolute inset-0 bg-black/20 hover:bg-transparent transition duration-500 z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1543883654-e053fa28965f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Couple 4" class="w-full h-[400px] md:h-[600px] object-cover">
+                    </div>
+                </div>
+                <!-- Add Pagination & Navigation -->
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VENUE / MAP SECTION -->
+    <section class="py-24 bg-cream relative">
+        <div class="absolute inset-0 pattern-bg z-0"></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <div class="mb-16" data-aos="fade-up">
+                <h2 class="text-5xl md:text-6xl font-cursive text-royalRed mb-4">The Venue</h2>
+                <div class="w-32 h-[2px] bg-luxuryGold mx-auto"></div>
+            </div>
+            
+            <div class="glass-card p-4 md:p-6 rounded-2xl inline-block max-w-5xl w-full" data-aos="fade-up" data-aos-duration="1000">
+                <!-- Google Maps Embed -->
+                <div class="w-full h-[400px] rounded-xl overflow-hidden border border-luxuryGold/30">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.816666986566!2d72.83060731536766!3d18.9217240871761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1c73a0d5cad%3A0xc70a25a7209c733c!2sThe%20Taj%20Mahal%20Palace%2C%20Mumbai!5e0!3m2!1sen!2sin!4v1689360000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="mt-8 text-royalRed">
+                    <h3 class="font-serif text-3xl font-bold mb-2">The Taj Mahal Palace</h3>
+                    <p class="font-sans text-gray-600"><i class="fas fa-map-marker-alt text-luxuryGold mr-2"></i>Apollo Bandar, Colaba, Mumbai, Maharashtra 400001</p>
+                    <a href="https://goo.gl/maps/YOUR_LINK_HERE" target="_blank" class="mt-6 inline-block bg-royalRed text-white px-8 py-3 rounded-full font-sans uppercase tracking-wider text-sm hover:bg-darkMaroon shadow-lg transition-colors border border-luxuryGold">Get Directions</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-darkMaroon py-16 text-center relative overflow-hidden">
+        <div class="absolute inset-0 pattern-bg opacity-10"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <img src="https://cdn-icons-png.flaticon.com/512/3593/3593455.png" alt="Ganesha" class="w-12 mx-auto mb-6 opacity-80 filter brightness-200">
+            <h2 class="text-6xl font-cursive text-luxuryGold mb-6 drop-shadow-md">Rahul & Anjali</h2>
+            <p class="font-sans text-gray-300 font-light max-w-md mx-auto mb-8">We look forward to sharing our joy and celebrating this beautiful new chapter of our lives with you.</p>
+            <div class="w-48 h-[1px] bg-luxuryGold/50 mx-auto mb-8"></div>
+            <p class="font-sans text-luxuryGold text-sm tracking-widest uppercase">With Love & Blessings</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <!-- GSAP for complex programmatic animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- AOS for scroll-based class toggling -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // 1. Initialize AOS
+            AOS.init({
+                once: true,
+                offset: 50,
+                duration: 800,
+                easing: 'ease-in-out-cubic',
+            });
+
+            // 2. GSAP Hero Animation
+            gsap.from("#hero-content", {
+                y: 50,
+                opacity: 0,
+                duration: 1.5,
+                ease: "power3.out",
+                delay: 0.5
+            });
+
+            // 3. Swiper Initialization
+            const swiper = new Swiper('.gallerySwiper', {
+                effect: 'fade',
+                loop: true,
+                autoplay: {
+                    delay: 3500,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+
+            // 4. Music Player Logic
+            const audio = document.getElementById("weddingMusic");
+            const musicBtn = document.getElementById("musicToggleBtn");
+            const musicIcon = document.getElementById("musicIcon");
+            const tooltip = document.getElementById("music-tooltip");
+            let isPlaying = false;
+
+            // Hide tooltip after 6 seconds
+            setTimeout(() => {
+                tooltip.style.opacity = '0';
+            }, 6000);
+
+            musicBtn.addEventListener("click", () => {
+                if (isPlaying) {
+                    audio.pause();
+                    musicIcon.classList.remove("fa-pause");
+                    musicIcon.classList.add("fa-music");
+                    musicBtn.classList.remove("shadow-gold-glow");
+                } else {
+                    audio.play();
+                    musicIcon.classList.remove("fa-music");
+                    musicIcon.classList.add("fa-pause");
+                    musicBtn.classList.add("shadow-gold-glow");
+                    tooltip.style.opacity = '0'; // hide tooltip if clicked
+                }
+                isPlaying = !isPlaying;
+            });
+
+            // 5. Countdown Timer
+            // Target date: November 25, 2026, 18:00:00
+            const countDownDate = new Date("Nov 25, 2026 18:00:00").getTime();
+
+            const x = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = countDownDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerHTML = days < 10 ? '0' + days : days;
+                document.getElementById("hours").innerHTML = hours < 10 ? '0' + hours : hours;
+                document.getElementById("minutes").innerHTML = minutes < 10 ? '0' + minutes : minutes;
+                document.getElementById("seconds").innerHTML = seconds < 10 ? '0' + seconds : seconds;
+
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("countdown").innerHTML = "<div class='text-4xl text-royalRed font-bold'>The Journey Begins!</div>";
+                }
+            }, 1000);
+
+            // 6. Floating Petals Animation Effect
+            const petalContainer = document.getElementById("petals-container");
+            const totalPetals = 35; // Adjust amount of petals
+
+            for (let i = 0; i < totalPetals; i++) {
+                let petal = document.createElement("div");
+                petal.classList.add("petal");
+                
+                // Random properties for natural look
+                let leftPos = Math.random() * 100; // random left 0-100%
+                let animDuration = 10 + Math.random() * 15; // 10s to 25s
+                let animDelay = Math.random() * 15; // 0s to 15s delay
+                let scale = 0.5 + Math.random() * 0.8; // random size
+
+                petal.style.left = `${leftPos}vw`;
+                petal.style.animationDuration = `${animDuration}s`;
+                petal.style.animationDelay = `${animDelay}s`;
+                petal.style.transform = `scale(${scale})`;
+
+                petalContainer.appendChild(petal);
+            }
+        });
+    </script>
+</body>
+</html> 
